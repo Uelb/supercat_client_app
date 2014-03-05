@@ -2,13 +2,563 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+  <meta name="csrf-token" content="oJEeU2KxUTu_Gk6EOs9_pg">
 	<title>Supercat</title>
 	<script src="vendor/underscore.js"></script>
 	<script src="vendor/json2.js"></script>
 	<script src="vendor/jquery-2.1.0.js"></script>
+  <script src="vendor/backbone_link.js"></script>
 	<script src="vendor/backbone.js"></script>
+  <script src="cathat.js"></script>
+  <script src="models/channel.js"></script>
+  <script src="models/message.js"></script>
+  <script src="models/user.js"></script>  
+  <script src="routers/channels_router.js"></script>
+  <script src="routers/messages_router.js"></script>
+  <script src="routers/users_router.js"></script>
+    <!-- Channels Templates-->
+  <script type="text/template" id='channel'>
+    <td><%= title %></td>
+    <td><%= latitude %></td>
+    <td><%= longitude %></td>
+    <td><%= creator_id %></td>
+
+    <td><a href="#/<%= id %>">Show</td>
+    <td><a href="#/<%= id %>/edit">Edit</td>
+    <td><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></td>
+  </script>
+  <script type="text/template" id='channel_edit'>
+    <h1>Edit channel</h1>
+
+    <form id="edit-channel" name="channel">
+      <div class="field">
+        <label for="title"> title:</label>
+        <input type="text" name="title" id="title" value="<%= title %>" >
+      </div>
+
+      <div class="field">
+        <label for="latitude"> latitude:</label>
+        <input type="text" name="latitude" id="latitude" value="<%= latitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="longitude"> longitude:</label>
+        <input type="text" name="longitude" id="longitude" value="<%= longitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="creator_id"> creator_id:</label>
+        <input type="text" name="creator_id" id="creator_id" value="<%= creator_id %>" >
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Update Channel" />
+      </div>
+
+    </form>
+
+    <a href="#/index">Back</a>
+  </script>
+  <script type="text/template" id='channel_index'>
+    <h1>Listing channels</h1>
+
+    <table id="channels-table">
+      <tr>
+        <th>Title</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Creator</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </table>
+
+    <br/>
+
+    <a href="#/new">New Channel</a>
+  </script>
+  <script type="text/template" id='channel_new'>
+    <h1>New channel</h1>
+
+    <form id="new-channel" name="channel">
+      <div class="field">
+        <label for="title"> title:</label>
+        <input type="text" name="title" id="title" value="<%= title %>" >
+      </div>
+
+      <div class="field">
+        <label for="latitude"> latitude:</label>
+        <input type="text" name="latitude" id="latitude" value="<%= latitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="longitude"> longitude:</label>
+        <input type="text" name="longitude" id="longitude" value="<%= longitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="creator_id"> creator_id:</label>
+        <input type="text" name="creator_id" id="creator_id" value="<%= creator_id %>" >
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Create Channel" />
+      </div>
+
+    </form>
+
+    <a href="#/index">Back</a>
+  </script>
+  <script type="text/template" id='channel_show'>
+    <p>
+      <b>Title:</b>
+      <%= title %>
+    </p>
+
+    <p>
+      <b>Latitude:</b>
+      <%= latitude %>
+    </p>
+
+    <p>
+      <b>Longitude:</b>
+      <%= longitude %>
+    </p>
+
+    <p>
+      <b>Creator:</b>
+      <%= creator_id %>
+    </p>
+
+
+    <a href="#/index">Back</a>
+  </script>
+  <!-- Messages Templates-->
+  <script type="text/template" id='message'>
+    <td><%= body %></td>
+    <td><%= latitude %></td>
+    <td><%= longitude %></td>
+    <td><%= author_id %></td>
+    <td><%= channel_id %></td>
+
+    <td><a href="#/<%= id %>">Show</td>
+    <td><a href="#/<%= id %>/edit">Edit</td>
+    <td><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></td>
+  </script>
+  <script type="text/template" id='message_edit'>
+    <h1>Edit message</h1>
+
+    <form id="edit-message" name="message">
+      <div class="field">
+        <label for="body"> body:</label>
+        <input type="text" name="body" id="body" value="<%= body %>" >
+      </div>
+
+      <div class="field">
+        <label for="latitude"> latitude:</label>
+        <input type="text" name="latitude" id="latitude" value="<%= latitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="longitude"> longitude:</label>
+        <input type="text" name="longitude" id="longitude" value="<%= longitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="author_id"> author_id:</label>
+        <input type="text" name="author_id" id="author_id" value="<%= author_id %>" >
+      </div>
+
+      <div class="field">
+        <label for="channel_id"> channel_id:</label>
+        <input type="text" name="channel_id" id="channel_id" value="<%= channel_id %>" >
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Update Message" />
+      </div>
+
+    </form>
+
+    <a href="#/index">Back</a>
+  </script>
+  <script type="text/template" id='message_index'>
+    <h1>Listing messages</h1>
+
+    <table id="messages-table">
+      <tr>
+        <th>Body</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Author</th>
+        <th>Channel</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </table>
+
+    <br/>
+
+    <a href="#/new">New Message</a>
+  </script>
+  <script type="text/template" id='message_new'>
+    <h1>New message</h1>
+
+    <form id="new-message" name="message">
+      <div class="field">
+        <label for="body"> body:</label>
+        <input type="text" name="body" id="body" value="<%= body %>" >
+      </div>
+
+      <div class="field">
+        <label for="latitude"> latitude:</label>
+        <input type="text" name="latitude" id="latitude" value="<%= latitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="longitude"> longitude:</label>
+        <input type="text" name="longitude" id="longitude" value="<%= longitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="author_id"> author_id:</label>
+        <input type="text" name="author_id" id="author_id" value="<%= author_id %>" >
+      </div>
+
+      <div class="field">
+        <label for="channel_id"> channel_id:</label>
+        <input type="text" name="channel_id" id="channel_id" value="<%= channel_id %>" >
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Create Message" />
+      </div>
+
+    </form>
+
+    <a href="#/index">Back</a>
+  </script>
+  <script type="text/template" id='message_show'>
+    <p>
+      <b>Body:</b>
+      <%= body %>
+    </p>
+
+    <p>
+      <b>Latitude:</b>
+      <%= latitude %>
+    </p>
+
+    <p>
+      <b>Longitude:</b>
+      <%= longitude %>
+    </p>
+
+    <p>
+      <b>Author:</b>
+      <%= author_id %>
+    </p>
+
+    <p>
+      <b>Channel:</b>
+      <%= channel_id %>
+    </p>
+
+
+    <a href="#/index">Back</a>
+  </script>
+  <!-- Users Templates-->
+  <script type="text/template" id='user'>
+    <td><%= email %></td>
+    <td><%= message_zone %></td>
+    <td><%= connected %></td>
+    <td><%= latitude %></td>
+    <td><%= longitude %></td>
+    <td><%= pseudo %></td>
+    <td><%= last_name %></td>
+    <td><%= first_name %></td>
+    <td><%= gender %></td>
+    <td><%= birth_date %></td>
+    <td><%= provider %></td>
+    <td><%= uid %></td>
+    <td><%= authentication_token %></td>
+
+    <td><a href="#/<%= id %>">Show</td>
+    <td><a href="#/<%= id %>/edit">Edit</td>
+    <td><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></td>
+  </script>
+  <script type="text/template" id='user_edit'>
+    <h1>Edit user</h1>
+
+    <form id="edit-user" name="user">
+      <div class="field">
+        <label for="email"> email:</label>
+        <input type="text" name="email" id="email" value="<%= email %>" >
+      </div>
+
+      <div class="field">
+        <label for="message_zone"> message_zone:</label>
+        <input type="text" name="message_zone" id="message_zone" value="<%= message_zone %>" >
+      </div>
+
+      <div class="field">
+        <label for="connected"> connected:</label>
+        <input type="text" name="connected" id="connected" value="<%= connected %>" >
+      </div>
+
+      <div class="field">
+        <label for="latitude"> latitude:</label>
+        <input type="text" name="latitude" id="latitude" value="<%= latitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="longitude"> longitude:</label>
+        <input type="text" name="longitude" id="longitude" value="<%= longitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="pseudo"> pseudo:</label>
+        <input type="text" name="pseudo" id="pseudo" value="<%= pseudo %>" >
+      </div>
+
+      <div class="field">
+        <label for="last_name"> last_name:</label>
+        <input type="text" name="last_name" id="last_name" value="<%= last_name %>" >
+      </div>
+
+      <div class="field">
+        <label for="first_name"> first_name:</label>
+        <input type="text" name="first_name" id="first_name" value="<%= first_name %>" >
+      </div>
+
+      <div class="field">
+        <label for="gender"> gender:</label>
+        <input type="text" name="gender" id="gender" value="<%= gender %>" >
+      </div>
+
+      <div class="field">
+        <label for="birth_date"> birth_date:</label>
+        <input type="text" name="birth_date" id="birth_date" value="<%= birth_date %>" >
+      </div>
+
+      <div class="field">
+        <label for="provider"> provider:</label>
+        <input type="text" name="provider" id="provider" value="<%= provider %>" >
+      </div>
+
+      <div class="field">
+        <label for="uid"> uid:</label>
+        <input type="text" name="uid" id="uid" value="<%= uid %>" >
+      </div>
+
+      <div class="field">
+        <label for="authentication_token"> authentication_token:</label>
+        <input type="text" name="authentication_token" id="authentication_token" value="<%= authentication_token %>" >
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Update User" />
+      </div>
+
+    </form>
+
+    <a href="#/index">Back</a>
+  </script>
+  <script type="text/template" id='user_index'>
+    <h1>Listing users</h1>
+
+    <table id="users-table">
+      <tr>
+        <th>Email</th>
+        <th>Message zone</th>
+        <th>Connected</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Pseudo</th>
+        <th>Last name</th>
+        <th>First name</th>
+        <th>Gender</th>
+        <th>Birth date</th>
+        <th>Provider</th>
+        <th>Uid</th>
+        <th>Authentication token</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </table>
+
+    <br/>
+
+    <a href="#/new">New User</a>
+  </script>
+  <script type="text/template" id='user_new'>
+    <h1>New user</h1>
+
+    <form id="new-user" name="user">
+      <div class="field">
+        <label for="email"> email:</label>
+        <input type="text" name="email" id="email" value="<%= email %>" >
+      </div>
+
+      <div class="field">
+        <label for="message_zone"> message_zone:</label>
+        <input type="text" name="message_zone" id="message_zone" value="<%= message_zone %>" >
+      </div>
+
+      <div class="field">
+        <label for="connected"> connected:</label>
+        <input type="text" name="connected" id="connected" value="<%= connected %>" >
+      </div>
+
+      <div class="field">
+        <label for="latitude"> latitude:</label>
+        <input type="text" name="latitude" id="latitude" value="<%= latitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="longitude"> longitude:</label>
+        <input type="text" name="longitude" id="longitude" value="<%= longitude %>" >
+      </div>
+
+      <div class="field">
+        <label for="pseudo"> pseudo:</label>
+        <input type="text" name="pseudo" id="pseudo" value="<%= pseudo %>" >
+      </div>
+
+      <div class="field">
+        <label for="last_name"> last_name:</label>
+        <input type="text" name="last_name" id="last_name" value="<%= last_name %>" >
+      </div>
+
+      <div class="field">
+        <label for="first_name"> first_name:</label>
+        <input type="text" name="first_name" id="first_name" value="<%= first_name %>" >
+      </div>
+
+      <div class="field">
+        <label for="gender"> gender:</label>
+        <input type="text" name="gender" id="gender" value="<%= gender %>" >
+      </div>
+
+      <div class="field">
+        <label for="birth_date"> birth_date:</label>
+        <input type="text" name="birth_date" id="birth_date" value="<%= birth_date %>" >
+      </div>
+
+      <div class="field">
+        <label for="provider"> provider:</label>
+        <input type="text" name="provider" id="provider" value="<%= provider %>" >
+      </div>
+
+      <div class="field">
+        <label for="uid"> uid:</label>
+        <input type="text" name="uid" id="uid" value="<%= uid %>" >
+      </div>
+
+      <div class="field">
+        <label for="authentication_token"> authentication_token:</label>
+        <input type="text" name="authentication_token" id="authentication_token" value="<%= authentication_token %>" >
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Create User" />
+      </div>
+
+    </form>
+
+    <a href="#/index">Back</a>
+  </script>
+  <script type="text/template" id='user_show'>
+    <p>
+      <b>Email:</b>
+      <%= email %>
+    </p>
+
+    <p>
+      <b>Message zone:</b>
+      <%= message_zone %>
+    </p>
+
+    <p>
+      <b>Connected:</b>
+      <%= connected %>
+    </p>
+
+    <p>
+      <b>Latitude:</b>
+      <%= latitude %>
+    </p>
+
+    <p>
+      <b>Longitude:</b>
+      <%= longitude %>
+    </p>
+
+    <p>
+      <b>Pseudo:</b>
+      <%= pseudo %>
+    </p>
+
+    <p>
+      <b>Last name:</b>
+      <%= last_name %>
+    </p>
+
+    <p>
+      <b>First name:</b>
+      <%= first_name %>
+    </p>
+
+    <p>
+      <b>Gender:</b>
+      <%= gender %>
+    </p>
+
+    <p>
+      <b>Birth date:</b>
+      <%= birth_date %>
+    </p>
+
+    <p>
+      <b>Provider:</b>
+      <%= provider %>
+    </p>
+
+    <p>
+      <b>Uid:</b>
+      <%= uid %>
+    </p>
+
+    <p>
+      <b>Authentication token:</b>
+      <%= authentication_token %>
+    </p>
+
+
+    <a href="#/index">Back</a>  
+  </script>
+
+  <script src="views/messages/edit_view.js"></script>
+  <script src="views/messages/index_view.js"></script>
+  <script src="views/messages/message_view.js"></script>
+  <script src="views/messages/show_view.js"></script>
+  <script src="views/channels/edit_view.js"></script>
+  <script src="views/channels/index_view.js"></script>
+  <script src="views/channels/channel_view.js"></script>
+  <script src="views/channels/show_view.js"></script>
+  <script src="views/users/edit_view.js"></script>
+  <script src="views/users/index_view.js"></script>
+  <script src="views/users/user_view.js"></script>
+  <script src="views/users/show_view.js"></script>
 </head>
 <body>
-	
+
+  
+  <div id="users"></div>
+  <div id="messages"></div>
+  <div id="channels"></div>
 </body>
 </html>
