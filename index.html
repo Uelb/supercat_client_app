@@ -556,6 +556,12 @@
   <script src="views/users/user_view.js"></script>
   <script src="views/users/show_view.js"></script>
   <script src="views/users/new_view.js"></script>
+  <script>
+    Messages = new SuperCat.Collections.MessagesCollection;
+    Messages.fetch();
+    router = new SuperCat.Routers.MessagesRouter({messages: Messages.toJSON()});
+    Backbone.history.start();
+  </script>
 </head>
 <body>
 
