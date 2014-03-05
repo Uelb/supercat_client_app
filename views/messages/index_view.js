@@ -20,8 +20,7 @@
     IndexView.prototype.template = _.template(document.getElementById('message_index').innerHTML);
 
     IndexView.prototype.initialize = function(options) {
-      this.options = new SuperCat.Collections.MessagesCollection;
-      this.options.reset(options.messages);
+      this.options = options;
       return this.options.messages.bind('reset', this.addAll);
     };
 

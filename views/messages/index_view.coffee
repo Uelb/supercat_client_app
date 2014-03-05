@@ -4,8 +4,7 @@ class SuperCat.Views.Messages.IndexView extends Backbone.View
   template: _.template(document.getElementById('message_index').innerHTML)
 
   initialize: (options) ->
-    @options = new SuperCat.Collections.MessagesCollection
-    @options.reset options.messages
+    @options = options
     @options.messages.bind('reset', @addAll)
 
   addAll: () =>

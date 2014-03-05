@@ -1,7 +1,7 @@
 (function($) {
   return $.extend($.fn, {
     backboneLink: function(model) {
-      return $(this).find(":input").each(function() {
+      return $(this).find("input, textarea").each(function() {
         var el, name;
         el = $(this);
         name = el.attr("name");

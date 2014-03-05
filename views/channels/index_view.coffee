@@ -4,6 +4,7 @@ class SuperCat.Views.Channels.IndexView extends Backbone.View
   template: _.template(document.getElementById('channel_index').innerHTML)
 
   initialize: () ->
+    @options = options
     @options.channels.bind('reset', @addAll)
 
   addAll: () =>
