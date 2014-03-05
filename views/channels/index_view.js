@@ -20,6 +20,7 @@
     IndexView.prototype.template = _.template(document.getElementById('channel_index').innerHTML);
 
     IndexView.prototype.initialize = function() {
+      this.options = options;
       return this.options.channels.bind('reset', this.addAll);
     };
 

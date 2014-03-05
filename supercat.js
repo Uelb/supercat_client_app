@@ -5,7 +5,7 @@
     Collections: {},
     Routers: {},
     Views: {},
-    rootUrl: 'http://0.0.0.0:3000'
+    rootUrl: 'http://supercat.oxynum.fr'
   };
 
   Backbone.old_sync = Backbone.sync;

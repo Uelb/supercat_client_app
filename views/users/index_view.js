@@ -20,6 +20,7 @@
     IndexView.prototype.template = _.template(document.getElementById('user_index').innerHTML);
 
     IndexView.prototype.initialize = function() {
+      this.options = options;
       return this.options.users.bind('reset', this.addAll);
     };
 
