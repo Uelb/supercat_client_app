@@ -1,21 +1,21 @@
 {
-  "name": "supercat",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.html",
-  "author": "",
-  "devDependencies": {
-    "grunt": "^0.4.3",
-    "grunt-contrib-watch": "^0.5.3",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-contrib-coffee": "^0.10.1",
-    "grunt-contrib-sass": "^0.7.3",
-    "grunt-contrib-connect": "^0.7.1",
-    "coffee-script": "~1.6.3",
-    "grunt-open": "^0.2.3"
-  },
-  "scripts": {
-    "install": "npm install -g grunt-cli && npm install -g bower",
-    "postinstall": "node_modules/.bin/bower install && grunt"
-  }
+    "name": "supercat",
+    "version": "0.0.0",
+    "description": "",
+    "main": "index.html",
+    "author": "",
+    "devDependencies": {
+        "grunt": "^0.4.3",
+        "grunt-contrib-watch": "^0.5.3",
+        "grunt-contrib-uglify": "^0.4.0",
+        "grunt-contrib-coffee": "^0.10.1",
+        "grunt-contrib-sass": "^0.7.3",
+        "grunt-contrib-connect": "^0.7.1",
+        "coffee-script": "~1.6.3",
+        "grunt-open": "^0.2.3"
+    },
+    "scripts": {
+        "install": "npm install -g grunt-cli && npm install -g bower",
+        "postinstall": "bower install && grunt"
+    }
 }
