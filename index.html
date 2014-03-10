@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-  <meta name="csrf-token" content="oJEeU2KxUTu_Gk6EOs9_pg">
+  <meta name="csrf-token" content="7efa_7zclufMZ-Mc1dM7xQ">
 	<title>Supercat</title>
-	<script src="vendor/underscore.js"></script>
+	<script src="bower_components/underscore/underscore.js"></script>
 	<script src="vendor/json2.js"></script>
-	<script src="vendor/zepto.js"></script>
+	<script src="bower_components/zepto/zepto.js"></script>
   <script src="vendor/backbone_link.js"></script>
-	<script src="vendor/backbone.js"></script>
-  <script src="js/supercat.js"></script>
-  <script src="js/models/channel.js"></script>
-  <script src="js/models/message.js"></script>
-  <script src="js/models/user.js"></script>  
-  <script src="js/routers/channels_router.js"></script>
-  <script src="js/routers/messages_router.js"></script>
-  <script src="js/routers/users_router.js"></script>
+	<script src="bower_components/backbone/backbone.js"></script>
+  <script src="public/js/supercat.js"></script>
+  <script src="public/js/models.js"></script> 
+  <script src="public/js/routers.js"></script>
     <!-- Channels Templates-->
   <script type="text/template" id='channel'>
     <td><%= title %></td>
@@ -541,21 +537,7 @@
     <a href="#/index">Back</a>  
   </script>
 
-  <script src="js/views/messages/edit_view.js"></script>
-  <script src="js/views/messages/index_view.js"></script>
-  <script src="js/views/messages/message_view.js"></script>
-  <script src="js/views/messages/show_view.js"></script>
-  <script src="js/views/messages/new_view.js"></script>
-  <script src="js/views/channels/edit_view.js"></script>
-  <script src="js/views/channels/index_view.js"></script>
-  <script src="js/views/channels/channel_view.js"></script>
-  <script src="js/views/channels/show_view.js"></script>
-  <script src="js/views/channels/new_view.js"></script>
-  <script src="js/views/users/edit_view.js"></script>
-  <script src="js/views/users/index_view.js"></script>
-  <script src="js/views/users/user_view.js"></script>
-  <script src="js/views/users/show_view.js"></script>
-  <script src="js/views/users/new_view.js"></script>
+  <script src="public/js/views.js"></script>
   <script>
     Messages = new SuperCat.Collections.MessagesCollection;
     Messages.fetch({success: function(){
@@ -570,5 +552,6 @@
   <div id="users"></div>
   <div id="messages"></div>
   <div id="channels"></div>
+  <script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>
