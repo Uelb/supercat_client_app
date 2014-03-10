@@ -4,18 +4,18 @@
 	<meta charset="UTF-8">
   <meta name="csrf-token" content="oJEeU2KxUTu_Gk6EOs9_pg">
 	<title>Supercat</title>
-	<script src="vendor/underscore.js"></script>
-	<script src="vendor/json2.js"></script>
-	<script src="vendor/zepto.js"></script>
-  <script src="vendor/backbone_link.js"></script>
-	<script src="vendor/backbone.js"></script>
-  <script src="supercat.js"></script>
-  <script src="models/channel.js"></script>
-  <script src="models/message.js"></script>
-  <script src="models/user.js"></script>  
-  <script src="routers/channels_router.js"></script>
-  <script src="routers/messages_router.js"></script>
-  <script src="routers/users_router.js"></script>
+	<script src="js/vendor/underscore.js"></script>
+	<script src="js/vendor/json2.js"></script>
+	<script src="js/vendor/zepto.js"></script>
+  <script src="js/vendor/backbone_link.js"></script>
+	<script src="js/vendor/backbone.js"></script>
+  <script src="js/supercat.js"></script>
+  <script src="js/models/channel.js"></script>
+  <script src="js/models/message.js"></script>
+  <script src="js/models/user.js"></script>  
+  <script src="js/routers/channels_router.js"></script>
+  <script src="js/routers/messages_router.js"></script>
+  <script src="js/routers/users_router.js"></script>
     <!-- Channels Templates-->
   <script type="text/template" id='channel'>
     <td><%= title %></td>
@@ -541,21 +541,21 @@
     <a href="#/index">Back</a>  
   </script>
 
-  <script src="views/messages/edit_view.js"></script>
-  <script src="views/messages/index_view.js"></script>
-  <script src="views/messages/message_view.js"></script>
-  <script src="views/messages/show_view.js"></script>
-  <script src="views/messages/new_view.js"></script>
-  <script src="views/channels/edit_view.js"></script>
-  <script src="views/channels/index_view.js"></script>
-  <script src="views/channels/channel_view.js"></script>
-  <script src="views/channels/show_view.js"></script>
-  <script src="views/channels/new_view.js"></script>
-  <script src="views/users/edit_view.js"></script>
-  <script src="views/users/index_view.js"></script>
-  <script src="views/users/user_view.js"></script>
-  <script src="views/users/show_view.js"></script>
-  <script src="views/users/new_view.js"></script>
+  <script src="js/views/messages/edit_view.js"></script>
+  <script src="js/views/messages/index_view.js"></script>
+  <script src="js/views/messages/message_view.js"></script>
+  <script src="js/views/messages/show_view.js"></script>
+  <script src="js/views/messages/new_view.js"></script>
+  <script src="js/views/channels/edit_view.js"></script>
+  <script src="js/views/channels/index_view.js"></script>
+  <script src="js/views/channels/channel_view.js"></script>
+  <script src="js/views/channels/show_view.js"></script>
+  <script src="js/views/channels/new_view.js"></script>
+  <script src="js/views/users/edit_view.js"></script>
+  <script src="js/views/users/index_view.js"></script>
+  <script src="js/views/users/user_view.js"></script>
+  <script src="js/views/users/show_view.js"></script>
+  <script src="js/views/users/new_view.js"></script>
   <script>
     Messages = new SuperCat.Collections.MessagesCollection;
     Messages.fetch({success: function(){
