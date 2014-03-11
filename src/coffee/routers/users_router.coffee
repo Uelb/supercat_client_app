@@ -15,6 +15,8 @@ class SuperCat.Routers.UsersRouter extends Backbone.Router
   index: ->
     @view = new SuperCat.Views.Users.IndexView(users: @users)
     $("#users").html(@view.render().el)
+    
+
 
   login: ->
     @view = new SuperCat.Views.Users.LoginView(users: @users)

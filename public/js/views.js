@@ -513,14 +513,20 @@ SuperCat.Views.Users.LoginView = (function(_super) {
     return LoginView.__super__.constructor.apply(this, arguments);
   }
 
+  LoginView.prototype.initialize = function(options) {
+    this.users = options.users;
+    return this.model = new this.users.model();
+  };
+
   LoginView.prototype.template = _.template(document.getElementById('user_login').innerHTML);
 
   LoginView.prototype.events = {
-    "submit": "update"
+    "submit": "login"
   };
 
-  LoginView.prototype.update = function(e) {
-    return e.preventDefault();
+  LoginView.prototype.login = function(e) {
+    e.preventDefault();
+    return this.model.login();
   };
 
   LoginView.prototype.render = function() {

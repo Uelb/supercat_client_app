@@ -16,6 +16,21 @@ class SuperCat.Models.User extends Backbone.Model
     uid: null
     authentication_token: null
 
+  login: ->
+    $.ajax
+      type: 'POST'
+      url: SuperCat.rootUrl + '/users/sign_in'
+      data: {user: this.toJSON()}
+      success: (data, status, xhr) ->
+        console.log data
+        token = data.auth_token
+        $('head').append($('<meta>', { name:"csrf-token", content:token}))
+        SuperCat.message_router.messages.fetch()
+        SuperCat.message_router.index()
+
+      error: (data, status, xhr) ->
+        console.log 'ko'
+
 class SuperCat.Collections.UsersCollection extends Backbone.Collection
   model: SuperCat.Models.User
   url: ->

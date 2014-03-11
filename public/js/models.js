@@ -107,6 +107,30 @@ SuperCat.Models.User = (function(_super) {
     authentication_token: null
   };
 
+  User.prototype.login = function() {
+    return $.ajax({
+      type: 'POST',
+      url: SuperCat.rootUrl + '/users/sign_in',
+      data: {
+        user: this.toJSON()
+      },
+      success: function(data, status, xhr) {
+        var token;
+        console.log(data);
+        token = data.auth_token;
+        $('head').append($('<meta>', {
+          name: "csrf-token",
+          content: token
+        }));
+        SuperCat.message_router.messages.fetch();
+        return SuperCat.message_router.index();
+      },
+      error: function(data, status, xhr) {
+        return console.log('ko');
+      }
+    });
+  };
+
   return User;
 
 })(Backbone.Model);
