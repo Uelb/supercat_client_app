@@ -134,20 +134,21 @@ SuperCat.Routers.UsersRouter = (function(_super) {
   UsersRouter.prototype.routes = {
     "new": "newUser",
     "index": "index",
+    "login": "login",
     ":id/edit": "edit",
     ":id": "show",
     ".*": "index"
   };
 
-  UsersRouter.prototype.newUser = function() {
-    this.view = new SuperCat.Views.Users.NewView({
-      collection: this.users
+  UsersRouter.prototype.index = function() {
+    this.view = new SuperCat.Views.Users.IndexView({
+      users: this.users
     });
     return $("#users").html(this.view.render().el);
   };
 
-  UsersRouter.prototype.index = function() {
-    this.view = new SuperCat.Views.Users.IndexView({
+  UsersRouter.prototype.login = function() {
+    this.view = new SuperCat.Views.Users.LoginView({
       users: this.users
     });
     return $("#users").html(this.view.render().el);

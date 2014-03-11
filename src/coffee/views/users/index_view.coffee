@@ -3,7 +3,7 @@ SuperCat.Views.Users ||= {}
 class SuperCat.Views.Users.IndexView extends Backbone.View
   template: _.template(document.getElementById('user_index').innerHTML)
 
-  initialize: () ->
+  initialize: (options) ->
     @options = options
     @options.users.bind('reset', @addAll)
 

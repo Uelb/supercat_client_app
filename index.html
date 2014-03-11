@@ -4,14 +4,17 @@
 	<meta charset="UTF-8">
   <meta name="csrf-token" content="7efa_7zclufMZ-Mc1dM7xQ">
 	<title>Supercat</title>
-	<script src="bower_components/underscore/underscore.js"></script>
-	<script src="vendor/json2.js"></script>
+  <link href="/public/css/main.css" media="all" rel="stylesheet" type="text/css" />
+<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 	<script src="bower_components/zepto/zepto.js"></script>
+  <script src="bower_components/json2/json2.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
   <script src="vendor/backbone_link.js"></script>
 	<script src="bower_components/backbone/backbone.js"></script>
   <script src="public/js/supercat.js"></script>
   <script src="public/js/models.js"></script> 
   <script src="public/js/routers.js"></script>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
     <!-- Channels Templates-->
   <script type="text/template" id='channel'>
     <td><%= title %></td>
@@ -536,8 +539,15 @@
 
     <a href="#/index">Back</a>  
   </script>
+  <script type="text/template" id='user_login'>
+   tatito
+
+    
+  </script>
 
   <script src="public/js/views.js"></script>
+
+
   <script>
     Messages = new SuperCat.Collections.MessagesCollection;
     Messages.fetch({success: function(){
@@ -548,10 +558,16 @@
 </head>
 <body>
 
-  
-  <div id="users"></div>
-  <div id="messages"></div>
-  <div id="channels"></div>
+  <div id='map'></div>
+  <div id="wrapper">
+    <div id="users"></div>
+    <div id="messages"></div>
+    <div id="channels"></div>
+  </div>
   <script src="//localhost:35729/livereload.js"></script>
+  <script>
+  var map = L.mapbox.map('map', 'examples.map-9ijuk24y')
+      .setView([40, -74.50], 9);
+  </script>
 </body>
 </html>

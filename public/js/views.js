@@ -471,7 +471,7 @@ SuperCat.Views.Users.IndexView = (function(_super) {
 
   IndexView.prototype.template = _.template(document.getElementById('user_index').innerHTML);
 
-  IndexView.prototype.initialize = function() {
+  IndexView.prototype.initialize = function(options) {
     this.options = options;
     return this.options.users.bind('reset', this.addAll);
   };
@@ -497,6 +497,39 @@ SuperCat.Views.Users.IndexView = (function(_super) {
   };
 
   return IndexView;
+
+})(Backbone.View);
+
+var _base,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+(_base = SuperCat.Views).Users || (_base.Users = {});
+
+SuperCat.Views.Users.LoginView = (function(_super) {
+  __extends(LoginView, _super);
+
+  function LoginView() {
+    return LoginView.__super__.constructor.apply(this, arguments);
+  }
+
+  LoginView.prototype.template = _.template(document.getElementById('user_login').innerHTML);
+
+  LoginView.prototype.events = {
+    "submit": "update"
+  };
+
+  LoginView.prototype.update = function(e) {
+    return e.preventDefault();
+  };
+
+  LoginView.prototype.render = function() {
+    $(this.el).html(this.template(this.model));
+    this.$("form").backboneLink(this.model);
+    return this;
+  };
+
+  return LoginView;
 
 })(Backbone.View);
 

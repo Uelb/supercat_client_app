@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
         sass: {
             dev: {
-                src: ['src/sass/*.sass'],
+                src: ['src/sass/*.scss'],
                 dest: 'public/css/main.css',
             },
         },
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         watch: {
             sass: {
                 // We watch and compile sass files as normal but don't live reload here
-                files: ['src/sass/*.sass'],
+                files: ['src/sass/*.scss'],
                 tasks: ['sass'],
                 livereload: true,
             },
