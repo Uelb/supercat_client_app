@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no"
   <title>Supercat</title>
-  <link href="/public/css/main.css" media="all" rel="stylesheet" type="text/css" />
-<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+  <link href="public/css/main.css" media="all" rel="stylesheet" type="text/css" />
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 	<script src="bower_components/zepto/zepto.js"></script>
   <script src="bower_components/json2/json2.js"></script>
   <script src="bower_components/underscore/underscore.js"></script>
@@ -539,14 +540,15 @@
     <a href="#/index">Back</a>  
   </script>
   <script type="text/template" id='user_login'>
+<section class="login">
+    <h1 class="logo">Supercat</h1>
     <form id="login-user" name="user">
-     <input type="email" placeholder="email" name="email" class="email input" />
-     <input type="password" name="password" class="password input" />
-     <button class="submit button">Login</button>
+        <input type="email" placeholder="Email" name="email" class="email input" />
+        <input type="password" placeholder="Password" name="password" class="password input" />
+        <button class="submit button">Login</button>
     </form>
-
-
-    
+    <a href="#/signup" class="button follow round">Signup</a>
+</section>
   </script>
 
   <script src="public/js/views.js"></script>
@@ -559,6 +561,7 @@
 <body>
 
   <div id="wrapper">
+    <div id="logins"></div>
     <div id="users"></div>
     <div id="messages"></div>
     <div id="channels"></div>

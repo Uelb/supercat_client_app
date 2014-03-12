@@ -151,7 +151,7 @@ SuperCat.Routers.UsersRouter = (function(_super) {
     this.view = new SuperCat.Views.Users.LoginView({
       users: this.users
     });
-    return $("#users").html(this.view.render().el);
+    return $("#logins").html(this.view.render().el);
   };
 
   UsersRouter.prototype.show = function(id) {
