@@ -1,4 +1,4 @@
-supercat app
+Supercat app
 ===================
 ## Get started
 
