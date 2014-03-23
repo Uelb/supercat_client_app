@@ -88,6 +88,7 @@ SuperCat.Routers.MessagesRouter = (function(_super) {
   };
 
   MessagesRouter.prototype.index = function() {
+    $("#messages").addClass('current');
     this.view = new SuperCat.Views.Messages.IndexView({
       messages: this.messages
     });
@@ -151,7 +152,7 @@ SuperCat.Routers.UsersRouter = (function(_super) {
     this.view = new SuperCat.Views.Users.LoginView({
       users: this.users
     });
-    return $("#logins").html(this.view.render().el);
+    return $("#logins").html(this.view.render().el).addClass('current');
   };
 
   UsersRouter.prototype.show = function(id) {

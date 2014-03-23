@@ -12,14 +12,23 @@ body{
 	padding:0;
 	@include position( absolute, 0px 0px 0px 0px );
 }
+#logins, #message, #users, #channels{
+	display:none;
+}
 
 #wrapper{
 	position: absolute;
 	top:0;
 	left:0;
+	width: 50%;
+	margin:auto;
 	right:0;
 	bottom:0;
 	z-index: 2;
+	.current{
+		display:block;
+		opacity:1;
+	}
 	.login{
 		@include position( absolute, 0px 0px 0px 0px );
 		z-index: 10;

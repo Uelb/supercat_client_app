@@ -79,10 +79,11 @@ SuperCat.Collections.MessagesCollection = (function(_super) {
 
 })(Backbone.Collection);
 
-var __hasProp = {}.hasOwnProperty,
+var Myuser, Myusers,
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-SuperCat.Models.User = (function(_super) {
+Myuser = SuperCat.Models.User = (function(_super) {
   __extends(User, _super);
 
   function User() {
@@ -107,6 +108,8 @@ SuperCat.Models.User = (function(_super) {
     authentication_token: null
   };
 
+  User.prototype.sync = Backbone.localforage.sync('Myuser');
+
   User.prototype.login = function() {
     return $.ajax({
       type: 'POST',
@@ -123,11 +126,16 @@ SuperCat.Models.User = (function(_super) {
           name: "csrf-token",
           content: token
         }));
-        SuperCat.message_router.messages.fetch();
-        return SuperCat.message_router.index();
+        $('#logins').removeClass('current');
+        return SuperCat.message_router.messages.fetch({
+          success: function() {
+            return SuperCat.message_router.index();
+          }
+        });
       },
       error: function(data, status, xhr) {
-        return console.log('ko');
+        console.log('ko');
+        return alert('Vos identifiants sont incorrectes');
       }
     });
   };
@@ -136,7 +144,7 @@ SuperCat.Models.User = (function(_super) {
 
 })(Backbone.Model);
 
-SuperCat.Collections.UsersCollection = (function(_super) {
+Myusers = SuperCat.Collections.UsersCollection = (function(_super) {
   __extends(UsersCollection, _super);
 
   function UsersCollection() {
@@ -144,6 +152,8 @@ SuperCat.Collections.UsersCollection = (function(_super) {
   }
 
   UsersCollection.prototype.model = SuperCat.Models.User;
+
+  UsersCollection.prototype.sync = Backbone.localforage.sync('Myusers');
 
   UsersCollection.prototype.url = function() {
     return SuperCat.rootUrl + '/users';

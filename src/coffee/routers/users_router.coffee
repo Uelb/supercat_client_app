@@ -20,7 +20,7 @@ class SuperCat.Routers.UsersRouter extends Backbone.Router
 
   login: ->
     @view = new SuperCat.Views.Users.LoginView(users: @users)
-    $("#logins").html(@view.render().el)
+    $("#logins").html(@view.render().el).addClass('current')
 
   show: (id) ->
     user = @users.get(id)

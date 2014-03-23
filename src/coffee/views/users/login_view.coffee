@@ -6,7 +6,7 @@ class SuperCat.Views.Users.LoginView extends Backbone.View
     @model = new @users.model()
 
   template : _.template(document.getElementById('user_login').innerHTML)
-
+  
   events :
     "submit" : "login"
 

@@ -15,6 +15,7 @@ class SuperCat.Routers.MessagesRouter extends Backbone.Router
     $("#messages").html(@view.render().el)
 
   index: ->
+    $("#messages").addClass('current')
     @view = new SuperCat.Views.Messages.IndexView(messages: @messages)
     $("#messages").html(@view.render().el)
 

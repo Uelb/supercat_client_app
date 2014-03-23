@@ -679,13 +679,21 @@ body {
   bottom: 0px;
   left: 0px; }
 
+#logins, #message, #users, #channels {
+  display: none; }
+
 #wrapper {
   position: absolute;
   top: 0;
   left: 0;
+  width: 50%;
+  margin: auto;
   right: 0;
   bottom: 0;
   z-index: 2; }
+  #wrapper .current {
+    display: block;
+    opacity: 1; }
   #wrapper .login {
     position: absolute;
     top: 0px;
