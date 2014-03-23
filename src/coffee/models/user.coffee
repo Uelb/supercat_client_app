@@ -24,6 +24,7 @@ class SuperCat.Models.User extends Backbone.Model
       success: (data, status, xhr) ->
         console.log data
         token = data.auth_token
+        $("meta[name='csrf-token']").remove()        
         $('head').append($('<meta>', { name:"csrf-token", content:token}))
         SuperCat.message_router.messages.fetch()
         SuperCat.message_router.index()

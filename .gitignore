@@ -4,3 +4,4 @@ bower_components
 .tmp
 *.sublime-project
 *.sublime-workspace
+*.log

@@ -118,6 +118,7 @@ SuperCat.Models.User = (function(_super) {
         var token;
         console.log(data);
         token = data.auth_token;
+        $("meta[name='csrf-token']").remove();
         $('head').append($('<meta>', {
           name: "csrf-token",
           content: token

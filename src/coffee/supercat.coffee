@@ -9,9 +9,10 @@ window.SuperCat =
   Routers: {}
   Views: {}
   rootUrl: 'http://0.0.0.0:3000'
+  dispatcher: {}
 
 Zepto ($)->
-  
+  SuperCat.dispatcher = new WebSocketRails SuperCat.rootUrl.split('//')[1] + '/websocket'
   
   router_login = ->
     router = new SuperCat.Routers.UsersRouter({})

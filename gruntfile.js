@@ -24,6 +24,14 @@ module.exports = function(grunt) {
                     'public/js/models.js': 'src/coffee/models/*.coffee',
                     'public/js/views.js': 'src/coffee/views/**/*.coffee',
                     'public/js/routers.js': 'src/coffee/routers/*.coffee',
+                    'vendor/websocket_rails.js': [
+                        'vendor/websocket_rails/websocket_rails.coffee', 
+                        'vendor/websocket_rails/event.coffee',
+                        'vendor/websocket_rails/abstract_connection.coffee', 
+                        'vendor/websocket_rails/http_connection.coffee', 
+                        'vendor/websocket_rails/websocket_connection.coffee', 
+                        'vendor/websocket_rails/channel.coffee'
+                        ]
                 }
             },
         },

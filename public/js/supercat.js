@@ -3,11 +3,13 @@ window.SuperCat = {
   Collections: {},
   Routers: {},
   Views: {},
-  rootUrl: 'http://0.0.0.0:3000'
+  rootUrl: 'http://0.0.0.0:3000',
+  dispatcher: {}
 };
 
 Zepto(function($) {
   var router_login;
+  SuperCat.dispatcher = new WebSocketRails(SuperCat.rootUrl.split('//')[1] + '/websocket');
   router_login = function() {
     var router;
     router = new SuperCat.Routers.UsersRouter({});
