@@ -406,6 +406,7 @@ perspective effects (not including the modals and the overlay).
   100% {
     -webkit-transform: translateZ(0) rotateY(0deg);
     opacity: 1; } }
+
 @-moz-keyframes slit {
   50% {
     -moz-transform: translateZ(-250px) rotateY(89deg);
@@ -415,6 +416,7 @@ perspective effects (not including the modals and the overlay).
   100% {
     -moz-transform: translateZ(0) rotateY(0deg);
     opacity: 1; } }
+
 @keyframes slit {
   50% {
     transform: translateZ(-250px) rotateY(89deg);
@@ -424,6 +426,7 @@ perspective effects (not including the modals and the overlay).
   100% {
     transform: translateZ(0) rotateY(0deg);
     opacity: 1; } }
+
 /* Effect 14:  3D Rotate from bottom */
 .md-effect-14.md-modal {
   -webkit-perspective: 1300px;
@@ -579,6 +582,7 @@ perspective effects (not including the modals and the overlay).
 
   100% {
     -webkit-transform: translateZ(-200px); } }
+
 @-moz-keyframes rotateRightSideFirst {
   50% {
     -moz-transform: translateZ(-50px) rotateY(5deg);
@@ -586,6 +590,7 @@ perspective effects (not including the modals and the overlay).
 
   100% {
     -moz-transform: translateZ(-200px); } }
+
 @keyframes rotateRightSideFirst {
   50% {
     transform: translateZ(-50px) rotateY(5deg);
@@ -593,6 +598,7 @@ perspective effects (not including the modals and the overlay).
 
   100% {
     transform: translateZ(-200px); } }
+
 .md-effect-18 .md-content {
   -webkit-transform: translateX(200%);
   -moz-transform: translateX(200%);
@@ -636,14 +642,17 @@ perspective effects (not including the modals and the overlay).
   50% {
     -webkit-transform: rotateX(10deg);
     -webkit-animation-timing-function: ease-out; } }
+
 @-moz-keyframes OpenTop {
   50% {
     -moz-transform: rotateX(10deg);
     -moz-animation-timing-function: ease-out; } }
+
 @keyframes OpenTop {
   50% {
     transform: rotateX(10deg);
     animation-timing-function: ease-out; } }
+
 .md-effect-19 .md-content {
   -webkit-transform: translateY(-200%);
   -moz-transform: translateY(-200%);
