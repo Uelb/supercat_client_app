@@ -592,6 +592,10 @@ WebSocketRails.Channel = (function() {
     return this._callbacks[event_name].push(callback);
   };
 
+  Channel.prototype.unbind = function(event_name) {
+    return delete this._callbacks[event_name];
+  };
+
   Channel.prototype.trigger = function(event_name, message, send_to_self) {
     var event;
     if (send_to_self == null) {
