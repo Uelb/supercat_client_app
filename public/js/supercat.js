@@ -35,7 +35,8 @@ Zepto(function($) {
   });
   SuperCat.user_router = new SuperCat.Routers.UsersRouter({});
   SuperCat.message_router = new SuperCat.Routers.MessagesRouter({});
-  return SuperCat.message_router.messages.fetch({
+  SuperCat.message_router.messages.fetch({
     success: SuperCat.message_router.index
   });
+  return window.googleCallback = SuperCat.Models.User.googleCallback;
 });

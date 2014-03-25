@@ -36,3 +36,4 @@ Zepto ($)->
   SuperCat.message_router = new SuperCat.Routers.MessagesRouter({})
   SuperCat.message_router.messages.fetch
     success: SuperCat.message_router.index
+  window.googleCallback = SuperCat.Models.User.googleCallback

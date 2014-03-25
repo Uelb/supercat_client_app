@@ -79,11 +79,10 @@ SuperCat.Collections.MessagesCollection = (function(_super) {
 
 })(Backbone.Collection);
 
-var Myuser, Myusers,
-  __hasProp = {}.hasOwnProperty,
+var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Myuser = SuperCat.Models.User = (function(_super) {
+SuperCat.Models.User = (function(_super) {
   __extends(User, _super);
 
   function User() {
@@ -117,22 +116,7 @@ Myuser = SuperCat.Models.User = (function(_super) {
       data: {
         user: this.toJSON()
       },
-      success: function(data, status, xhr) {
-        var token;
-        console.log(data);
-        token = data.auth_token;
-        $("meta[name='csrf-token']").remove();
-        $('head').append($('<meta>', {
-          name: "csrf-token",
-          content: token
-        }));
-        $('#logins').removeClass('current');
-        return SuperCat.message_router.messages.fetch({
-          success: function() {
-            return SuperCat.message_router.index();
-          }
-        });
-      },
+      success: this.constructor.postLogin,
       error: function(data, status, xhr) {
         console.log('ko');
         return alert('Vos identifiants sont incorrectes');
@@ -140,11 +124,48 @@ Myuser = SuperCat.Models.User = (function(_super) {
     });
   };
 
+  User.postLogin = function(data, status, xhr) {
+    var token;
+    console.log(data);
+    token = data.auth_token;
+    $("meta[name='csrf-token']").remove();
+    $('head').append($('<meta>', {
+      name: "csrf-token",
+      content: token
+    }));
+    $('#logins').removeClass('current');
+    return SuperCat.message_router.messages.fetch({
+      success: function() {
+        return SuperCat.message_router.index();
+      }
+    });
+  };
+
+  User.googleCallback = function(authResult) {
+    console.log(authResult);
+    if (authResult["code"]) {
+      $("#signinButton").attr("style", "display: none");
+      return $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: SuperCat.rootUrl + "/auth/google_oauth2/callback",
+        success: function(result) {
+          console.log(result);
+        },
+        data: authResult
+      });
+    } else {
+      if (authResult["error"]) {
+        return console.log("There was an error: " + authResult["error"]);
+      }
+    }
+  };
+
   return User;
 
 })(Backbone.Model);
 
-Myusers = SuperCat.Collections.UsersCollection = (function(_super) {
+SuperCat.Collections.UsersCollection = (function(_super) {
   __extends(UsersCollection, _super);
 
   function UsersCollection() {
