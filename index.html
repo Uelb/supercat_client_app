@@ -8,16 +8,9 @@
   <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 	
   <script src="bower_components/zepto/zepto.js"></script>
-  <script type="text/javascript">
-    (function () {
-      var po = document.createElement('script');
-      po.type = 'text/javascript';
-      po.async = true;
-      po.src = 'https://plus.google.com/js/client:plusone.js?onload=start';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(po, s);
-    })();
-  </script>
+  <script src="vendor/google.js"></script>
+  <script src="vendor/facebook.js"></script>
+  <script src="vendor/websocket_rails.js"></script>
   <script src="bower_components/json2/json2.js"></script>
   <script src="bower_components/underscore/underscore.js"></script>
   <script src="vendor/backbone_link.js"></script>
@@ -27,7 +20,6 @@
   <script src="public/js/supercat.js"></script>
   <script src="public/js/models.js"></script> 
   <script src="public/js/routers.js"></script>
-  <script src="vendor/websocket_rails.js"></script>
   <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
     <!-- Channels Templates-->
   <script type="text/template" id='channel'>
@@ -197,6 +189,7 @@
     <a href="#/index">Back</a>
   </script>
   <script type="text/template" id='message_index'>
+    <img id="avatar" />
     <h1>Listing messages</h1>
 
     <table id="messages-table">
@@ -554,36 +547,32 @@
     <a href="#/index">Back</a>  
   </script>
   <script type="text/template" id='user_login'>
-<section class="login">
-    <h1 class="logo">Supercat</h1>
-    <form id="login-user" name="user">
-        <input type="email" placeholder="Email" name="email" class="email input" />
-        <input type="password" placeholder="Password" name="password" class="password input" />
-        <button class="submit button">Login</button>
-        <div id="signinButton">
-          <span class="g-signin"
-            data-scope="https://www.googleapis.com/auth/plus.login"
-            data-clientid="602467439791-p9up91q55b09im30lv5tvnfes1rk8i9i.apps.googleusercontent.com"
-            data-redirecturi="postmessage"
-            data-accesstype="offline"
-            data-cookiepolicy="single_host_origin"
-            data-callback="googleCallback">
-          </span>
-        </div>
-    </form>
-    <a href="#/signup" class="button follow round">Signup</a>
-</section>
+    <section class="login">
+        <div id="fb-root"></div>
+        <h1 class="logo">Supercat</h1>
+        <form id="login-user" name="user">
+            <input type="email" placeholder="Email" name="email" class="email input" />
+            <input type="password" placeholder="Password" name="password" class="password input" />
+            <button class="submit button">Login</button>
+            <div id="signinButton">
+              <span class="g-signin"
+                data-scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+                data-clientid="602467439791-p9up91q55b09im30lv5tvnfes1rk8i9i.apps.googleusercontent.com"
+                data-redirecturi="postmessage"
+                data-accesstype="offline"
+                data-cookiepolicy="single_host_origin"
+                data-callback="googleCallback">
+              </span>
+            </div>
+            <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false"></div>
+        </form>
+        <a href="#/signup" class="button follow round">Signup</a>
+    </section>
   </script>
 
   <script src="public/js/views.js"></script>
-
-
-  <script>
-    
-  </script>
 </head>
 <body>
-
   <div id="wrapper">
     <div id="logins"></div>
     <div id="users"></div>

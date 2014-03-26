@@ -3,13 +3,13 @@ window.SuperCat = {
   Collections: {},
   Routers: {},
   Views: {},
-  rootUrl: 'http://0.0.0.0:3000',
-  dispatcher: {}
+  rootUrl: 'http://0.0.0.0:3000'
 };
+
+SuperCat.dispatcher = new WebSocketRails(SuperCat.rootUrl.split('//')[1] + '/websocket');
 
 Zepto(function($) {
   var router_login;
-  SuperCat.dispatcher = new WebSocketRails(SuperCat.rootUrl.split('//')[1] + '/websocket');
   router_login = function() {
     var router;
     router = new SuperCat.Routers.UsersRouter({});
@@ -38,5 +38,6 @@ Zepto(function($) {
   SuperCat.message_router.messages.fetch({
     success: SuperCat.message_router.index
   });
-  return window.googleCallback = SuperCat.Models.User.googleCallback;
+  window.googleCallback = SuperCat.Models.User.googleCallback;
+  return window.facebookCallback = SuperCat.Models.User.facebookCallback;
 });

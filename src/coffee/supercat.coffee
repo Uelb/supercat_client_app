@@ -9,10 +9,9 @@ window.SuperCat =
   Routers: {}
   Views: {}
   rootUrl: 'http://0.0.0.0:3000'
-  dispatcher: {}
+SuperCat.dispatcher = new WebSocketRails SuperCat.rootUrl.split('//')[1] + '/websocket'
 
 Zepto ($)->
-  SuperCat.dispatcher = new WebSocketRails SuperCat.rootUrl.split('//')[1] + '/websocket'
   
   router_login = ->
     router = new SuperCat.Routers.UsersRouter({})
@@ -37,3 +36,4 @@ Zepto ($)->
   SuperCat.message_router.messages.fetch
     success: SuperCat.message_router.index
   window.googleCallback = SuperCat.Models.User.googleCallback
+  window.facebookCallback = SuperCat.Models.User.facebookCallback

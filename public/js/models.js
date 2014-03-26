@@ -38,6 +38,45 @@ SuperCat.Collections.ChannelsCollection = (function(_super) {
 
 })(Backbone.Collection);
 
+var events,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+SuperCat.Models.WebsocketEvent = (function(_super) {
+  __extends(WebsocketEvent, _super);
+
+  function WebsocketEvent() {
+    return WebsocketEvent.__super__.constructor.apply(this, arguments);
+  }
+
+  WebsocketEvent.listen = function(events) {
+    return _.each(events, function(event) {
+      console.log('Binding event ' + event[0] + ' with function ' + event[1].name);
+      return SuperCat.dispatcher.bind(event[0], event[1]);
+    });
+  };
+
+  WebsocketEvent.listen_to_private_message = function(token, user_id) {
+    SuperCat.dispatcher.trigger('create_user_channel', {
+      token: token
+    });
+    return SuperCat.dispatcher.subscribe_private('user_' + user_id);
+  };
+
+  WebsocketEvent.user_channel = null;
+
+  WebsocketEvent.message_received_handler = function(data) {
+    return console.log(data);
+  };
+
+  return WebsocketEvent;
+
+})(Backbone.Model);
+
+events = [['message_received', SuperCat.Models.WebsocketEvent.message_received_handler]];
+
+SuperCat.Models.WebsocketEvent.listen(events);
+
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -116,7 +155,7 @@ SuperCat.Models.User = (function(_super) {
       data: {
         user: this.toJSON()
       },
-      success: this.constructor.postLogin,
+      success: SuperCat.Models.User.postLogin,
       error: function(data, status, xhr) {
         console.log('ko');
         return alert('Vos identifiants sont incorrectes');
@@ -126,7 +165,7 @@ SuperCat.Models.User = (function(_super) {
 
   User.postLogin = function(data, status, xhr) {
     var token;
-    console.log(data);
+    console.log("Server connected", data);
     token = data.auth_token;
     $("meta[name='csrf-token']").remove();
     $('head').append($('<meta>', {
@@ -136,28 +175,39 @@ SuperCat.Models.User = (function(_super) {
     $('#logins').removeClass('current');
     return SuperCat.message_router.messages.fetch({
       success: function() {
-        return SuperCat.message_router.index();
+        SuperCat.message_router.index();
+        return $('#avatar').attr('src', 'http://www.gravatar.com/avatar/' + data.email_md5);
       }
     });
   };
 
   User.googleCallback = function(authResult) {
-    console.log(authResult);
+    console.log("Connected via Google", authResult);
     if (authResult["code"]) {
       $("#signinButton").attr("style", "display: none");
       return $.ajax({
         type: "POST",
         dataType: "json",
         url: SuperCat.rootUrl + "/auth/google_oauth2/callback",
-        success: function(result) {
-          console.log(result);
-        },
+        success: SuperCat.Models.User.postLogin,
         data: authResult
       });
     } else {
       if (authResult["error"]) {
         return console.log("There was an error: " + authResult["error"]);
       }
+    }
+  };
+
+  User.facebookCallback = function(authResult) {
+    console.log("Connected via facebook", authResult);
+    $(".fb-login-button").attr("style", "display:none");
+    if (authResult) {
+      return $.get(SuperCat.rootUrl + '/auth/facebook/callback', {
+        signed_request: authResult.authResponse.signedRequest
+      }, SuperCat.Models.User.postLogin);
+    } else {
+      return console.log("There was an error facebook connect.");
     }
   };
 
